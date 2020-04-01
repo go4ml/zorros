@@ -1,4 +1,4 @@
-module github.com/sudachen/go-zorrors
+module github.com/sudachen/go-zorros
 
 go 1.13
 
