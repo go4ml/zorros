@@ -77,8 +77,8 @@ func init() {
 // when closing the logger.
 
 type Config struct {
-	Name string         // log name
-	Verbose bool        // verbose log to stdout/stderr
+	Name      string    // log name
+	Verbose   bool      // verbose log to stdout/stderr
 	LogWriter io.Writer // writer to write log
 	LogFile   string    // filename to write log
 	SentryDsn string    // log to sentry
@@ -88,10 +88,12 @@ type Config struct {
 func (cfg Config) Init() *Logger {
 	logw := io.Writer(nil)
 	if cfg.LogWriter != nil {
-		logw =  cfg.LogWriter
+		logw = cfg.LogWriter
 	} else if cfg.LogFile != "" {
 		f, err := os.Create(cfg.LogFile)
-		if err != nil { panic(err) }
+		if err != nil {
+			panic(err)
+		}
 		logw = f
 	}
 
@@ -99,7 +101,9 @@ func (cfg Config) Init() *Logger {
 		var tag string
 		var a []io.Writer
 		var v io.Writer
-		if logw != nil { a = append(a, logw) }
+		if logw != nil {
+			a = append(a, logw)
+		}
 		switch level {
 		case sInfo:
 			v = os.Stdout
@@ -143,7 +147,7 @@ func (cfg Config) Init() *Logger {
 		defaultLogger = &l
 	}
 
-	if !cfg.Exclusive && cfg.SentryDsn != ""{
+	if !cfg.Exclusive && cfg.SentryDsn != "" {
 		err := sentry.Init(sentry.ClientOptions{Dsn: cfg.SentryDsn})
 		if err != nil {
 			l.Warningf("failed to connect Sentry: %v", err.Error())
@@ -426,4 +430,3 @@ func Fatalf(format string, v ...interface{}) {
 	defaultLogger.Close()
 	os.Exit(1)
 }
-

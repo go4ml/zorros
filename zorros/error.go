@@ -17,6 +17,10 @@ func Errorf(f string, a ...interface{}) error {
 	return zerror{fmt.Errorf(f, a...), xerrors.Caller(1)}
 }
 
+func Wrapf(err error, f string, a ...interface{}) error {
+	return zerror{wrapper{err, fmt.Sprintf(f, a...)}, xerrors.Caller(1)}
+}
+
 type zerror struct {
 	error
 	frame xerrors.Frame
@@ -39,4 +43,18 @@ func stringifyError(err error) (string, error) {
 	return strings.Join(strings.Fields(ep.String()), " "), err
 }
 
+type wrapper struct {
+	error
+	message string
+}
 
+func (e wrapper) Error() string {
+	return e.message
+}
+
+func (e wrapper) Unwrap() error {
+	if w, ok := e.error.(xerrors.Wrapper); ok {
+		return w.Unwrap()
+	}
+	return e.error
+}

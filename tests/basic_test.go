@@ -15,9 +15,9 @@ func Test_Init(t *testing.T) {
 
 func Test_LogWriter(t *testing.T) {
 	bf := bytes.Buffer{}
-	func(){
+	func() {
 		defer zlog.Config{Name: "test log", LogWriter: &bf}.Init().Close()
 		zlog.Info("hello logger!")
 	}()
-	assert.Assert(t,strings.Contains(bf.String(),"hello logger!"))
+	assert.Assert(t, strings.Contains(bf.String(), "hello logger!"))
 }

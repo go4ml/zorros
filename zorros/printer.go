@@ -21,4 +21,3 @@ func (ep *errorPrinter) Printf(format string, args ...interface{}) {
 func (ep errorPrinter) Detail() bool {
 	return ep.details
 }
-
