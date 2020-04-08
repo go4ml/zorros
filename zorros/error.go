@@ -21,6 +21,10 @@ func Wrapf(err error, f string, a ...interface{}) error {
 	return zerror{wrapper{err, fmt.Sprintf(f, a...)}, xerrors.Caller(1)}
 }
 
+func New(message string) error {
+	return zerror{xerrors.New(message), xerrors.Caller(1)}
+}
+
 type zerror struct {
 	error
 	frame xerrors.Frame
