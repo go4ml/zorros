@@ -2,7 +2,7 @@ package tests
 
 import (
 	"bytes"
-	"github.com/sudachen/go-zorros/zlog"
+	"go-ml.dev/pkg/zorros/zlog"
 	"gotest.tools/assert"
 	"strings"
 	"testing"
