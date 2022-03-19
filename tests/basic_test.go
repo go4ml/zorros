@@ -2,7 +2,7 @@ package tests
 
 import (
 	"bytes"
-	"go-ml.dev/pkg/zorros/zlog"
+	"go4ml.xyz/zorros/zlog"
 	"gotest.tools/assert"
 	"strings"
 	"testing"

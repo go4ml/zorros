@@ -1,4 +1,4 @@
-module go-ml.dev/pkg/zorros
+module go4ml.xyz/zorros
 
 go 1.13
 
